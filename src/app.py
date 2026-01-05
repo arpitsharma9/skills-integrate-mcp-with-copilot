@@ -63,6 +63,12 @@ activities = {
         "max_participants": 20,
         "participants": ["ella@mergington.edu", "scarlett@mergington.edu"]
     },
+    "GitHub Skills": {
+        "description": "Learn and practice GitHub workflows, version control, and collaboration skills.",
+        "schedule": "Thursdays, 3:00 PM - 4:00 PM",
+        "max_participants": 15,
+        "participants": []
+    },
     "Math Club": {
         "description": "Solve challenging problems and participate in math competitions",
         "schedule": "Tuesdays, 3:30 PM - 4:30 PM",
