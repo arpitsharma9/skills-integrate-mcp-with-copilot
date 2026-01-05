@@ -113,6 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchActivities();
   }
 
+  // Helper function to check if user can delete a participant
+  function canUserDeleteParticipant(participantEmail) {
+    return currentUserRole === "teacher" || 
+           currentUserRole === "admin" || 
+           (currentUserRole === "student" && participantEmail === currentUserEmail);
+  }
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -132,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
           details.max_participants - details.participants.length;
 
         // Create participants HTML with delete icons
-        // Only show delete buttons for teachers/admins, or for students on their own entry
+        // Only show delete buttons based on user permissions
         const participantsHTML =
           details.participants.length > 0
             ? `<div class="participants-section">
@@ -140,9 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <ul class="participants-list">
                 ${details.participants
                   .map((email) => {
-                    const canDelete = currentUserRole === "teacher" || 
-                                     currentUserRole === "admin" || 
-                                     (currentUserRole === "student" && email === currentUserEmail);
+                    const canDelete = canUserDeleteParticipant(email);
                     return `<li>
                       <span class="participant-email">${email}</span>
                       ${canDelete ? `<button class="delete-btn" data-activity="${name}" data-email="${email}">❌</button>` : ''}
