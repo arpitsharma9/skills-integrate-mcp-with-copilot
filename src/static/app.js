@@ -120,6 +120,13 @@ document.addEventListener("DOMContentLoaded", () => {
            (currentUserRole === "student" && participantEmail === currentUserEmail);
   }
 
+  // Helper function to escape HTML to prevent XSS
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -148,9 +155,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 ${details.participants
                   .map((email) => {
                     const canDelete = canUserDeleteParticipant(email);
+                    const escapedEmail = escapeHtml(email);
+                    const escapedName = escapeHtml(name);
                     return `<li>
-                      <span class="participant-email">${email}</span>
-                      ${canDelete ? `<button class="delete-btn" data-activity="${name}" data-email="${email}">❌</button>` : ''}
+                      <span class="participant-email">${escapedEmail}</span>
+                      ${canDelete ? `<button class="delete-btn" data-activity="${escapedName}" data-email="${escapedEmail}">❌</button>` : ''}
                     </li>`;
                   })
                   .join("")}
@@ -159,9 +168,9 @@ document.addEventListener("DOMContentLoaded", () => {
             : `<p><em>No participants yet</em></p>`;
 
         activityCard.innerHTML = `
-          <h4>${name}</h4>
-          <p>${details.description}</p>
-          <p><strong>Schedule:</strong> ${details.schedule}</p>
+          <h4>${escapeHtml(name)}</h4>
+          <p>${escapeHtml(details.description)}</p>
+          <p><strong>Schedule:</strong> ${escapeHtml(details.schedule)}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           <div class="participants-container">
             ${participantsHTML}
