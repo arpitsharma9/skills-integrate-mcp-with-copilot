@@ -10,9 +10,40 @@
     <header>
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
+      <div id="user-info" class="user-info hidden">
+        <span id="user-email"></span> (<span id="user-role"></span>)
+        <button id="logout-btn" class="logout-btn">Logout</button>
+      </div>
     </header>
 
-    <main>
+    <!-- Login Section -->
+    <section id="login-section" class="login-section">
+      <div class="login-container">
+        <h3>Login</h3>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required placeholder="your-email@mergington.edu" />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" required placeholder="password" />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <div id="login-message" class="hidden"></div>
+        <div class="info-box">
+          <p><strong>Test Accounts:</strong></p>
+          <p>Teacher: teacher@mergington.edu / password</p>
+          <p>Admin: admin@mergington.edu / password</p>
+          <p>Student: student1@mergington.edu / password</p>
+          <p>Student: student2@mergington.edu / password</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content (Hidden until logged in) -->
+    <main id="main-content" class="hidden">
       <section id="activities-container">
         <h3>Available Activities</h3>
         <div id="activities-list">
